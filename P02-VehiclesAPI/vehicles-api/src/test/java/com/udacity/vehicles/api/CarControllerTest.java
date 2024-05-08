@@ -127,6 +127,17 @@ public class CarControllerTest {
         verify(carService, times(1)).delete(1L);
     }
 
+    @Test
+    public void updateCar() throws Exception {
+        Car car = getCar();
+        car.setCondition(Condition.NEW);
+        mvc.perform(get(new URI("/cars"))
+                        .content(json.write(car).getJson())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk());
+    }
+
     /**
      * Creates an example Car object for use in testing.
      * @return an example Car object
